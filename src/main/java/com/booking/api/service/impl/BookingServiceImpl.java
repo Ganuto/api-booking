@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 @Service
@@ -47,6 +48,29 @@ public class BookingServiceImpl implements BookingService {
             throw new BusinessException(String.format("dateFrom [%s] cannot be before now ", dateFrom));
         } else if (isDateToBeforeNow) {
             throw new BusinessException(String.format("dateTo [%s] cannot be before now", dateTo));
+        }
+
+        Period periodBetweenDateFromAndDateTo = Period.between(dateFrom, dateTo);
+        if (periodBetweenDateFromAndDateTo.getYears() > 0) {
+            throw new BusinessException("Booking permanence cannot be more than three days");
+        } else if (periodBetweenDateFromAndDateTo.getMonths() > 0) {
+            throw new BusinessException("Booking permanence cannot be more than three days");
+        } else if (periodBetweenDateFromAndDateTo.getDays() > 3) {
+            throw new BusinessException("Booking permanence cannot be more than three days");
+        }
+
+        Period periodBetweenDateFromAndNow = Period.between(LocalDate.now(), dateFrom);
+        if (periodBetweenDateFromAndNow.getYears() > 0) {
+            throw new BusinessException("Booking reservation cannot be more than 30 days in advance");
+        } else if (periodBetweenDateFromAndNow.getMonths() > 0) {
+            throw new BusinessException("Booking reservation cannot be more than 30 days in advance");
+        } else if (periodBetweenDateFromAndNow.getDays() > 30) {
+            throw new BusinessException("Booking reservation cannot be more than 30 days in advance");
+        }
+
+        boolean isBookingDayLessThanOneDayInAdvance = periodBetweenDateFromAndNow.getDays() <= 0;
+        if (isBookingDayLessThanOneDayInAdvance) {
+            throw new BusinessException("Booking reservation cannot be less than 1 day in advance");
         }
     }
 }
