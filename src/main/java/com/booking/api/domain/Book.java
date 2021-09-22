@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "USER")
+@Table(name = "BOOK")
 public class Book {
 
     @Id
@@ -28,6 +28,4 @@ public class Book {
 
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
-
-
 }
