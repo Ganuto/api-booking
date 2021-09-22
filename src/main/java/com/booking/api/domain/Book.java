@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -21,10 +22,10 @@ public class Book {
     private User userId;
 
     @Column(name = "date_from", nullable = false)
-    private LocalDateTime dateFrom;
+    private LocalDate dateFrom;
 
     @Column(name = "date_to", nullable = false)
-    private LocalDateTime dateTo;
+    private LocalDate dateTo;
 
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;

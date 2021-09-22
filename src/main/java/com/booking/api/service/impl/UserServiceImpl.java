@@ -9,6 +9,8 @@ import com.booking.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -19,5 +21,11 @@ public class UserServiceImpl implements UserService {
     public UserCreationResponse create(UserCreationRequest userCreationRequest) {
         User user = userRepository.save(UserMapper.toDomain(userCreationRequest));
         return UserMapper.toResponse(user);
+    }
+
+    @Override
+    public User findById(Long id) {
+        return Optional.of(userRepository.findById(id)).get()
+                .orElse(null);
     }
 }
