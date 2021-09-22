@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
 
 @Getter
 @Setter
@@ -19,12 +18,12 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "document", unique = true)
+    @Column(name = "document", unique = true, nullable = false)
     private String document;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true, nullable = false)
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 }
