@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,13 +29,19 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new BusinessException(String.format("User [%s] not found", bookCreationRequest.getUserId())));
         Book book = BookingMapper.toDomain(bookCreationRequest, user);
         validateDates(book.getDateFrom(), book.getDateTo());
-        checkRoomAvailability();
+        checkRoomAvailability(book.getDateFrom(), book.getDateTo());
         bookRepository.save(book);
     }
 
-    private void checkRoomAvailability() {
-        // TODO
-        // bookRepository.
+    public List<Book> find(LocalDate dateFrom, LocalDate dateTo) {
+        return bookRepository.findAllByDateFromAndDateTo(dateFrom, dateTo);
+    }
+
+    private void checkRoomAvailability(LocalDate dateFrom, LocalDate dateTo) {
+        List<Book> bookList = bookRepository.findAllByDateFromAndDateTo(dateFrom, dateTo);
+        if (!bookList.isEmpty()) {
+            throw new BusinessException(String.format("Room's already booked between the dates from [%s] and to [%s]", bookList.stream().findFirst().get().getDateFrom(), bookList.stream().findFirst().get().getDateTo()));
+        }
     }
 
     private void validateDates(LocalDate dateFrom, LocalDate dateTo) {
