@@ -1,6 +1,7 @@
 package com.booking.api.controller;
 
 import com.booking.api.controller.data.request.BookCreationRequest;
+import com.booking.api.controller.data.request.BookUpdateRequest;
 import com.booking.api.domain.Book;
 import com.booking.api.service.BookingService;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +31,18 @@ public class BookingController {
     public ResponseEntity<Void> create(@RequestBody @Valid BookCreationRequest bookCreationRequest) {
         bookingService.book(bookCreationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/book/:id")
+    public ResponseEntity<Void> cancel(@PathVariable Long bookId) {
+        bookingService.delete(bookId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PatchMapping("/book/:id")
+    public ResponseEntity<Void> update(@PathVariable Long bookId,
+                                       @RequestBody @Valid BookUpdateRequest bookUpdateRequest) {
+        bookingService.update(bookId, bookUpdateRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

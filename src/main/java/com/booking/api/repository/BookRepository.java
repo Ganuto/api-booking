@@ -20,4 +20,12 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "WHERE (b.dateFrom BETWEEN :dateFrom AND :dateTo) " +
             "OR (b.dateTo BETWEEN :dateFrom AND :dateTo)")
     List<Book> findAllByDateFromAndDateTo(@Param("dateFrom") LocalDate dateFrom, @Param("dateTo") LocalDate dateTo);
+
+
+    @Query("UPDATE Book b" +
+            "SET b.dateFrom = :dateFrom, dateTo = :dateTo " +
+            "WHERE b.id = :bookId")
+    Book updateDateFromAndDateTo(@Param("bookId") Long bookId,
+                                 @Param("newDateFrom") LocalDate newDateFrom,
+                                 @Param("newDateTo") LocalDate newDateTo);
 }

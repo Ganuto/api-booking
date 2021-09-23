@@ -1,6 +1,7 @@
 package com.booking.api.service.impl;
 
 import com.booking.api.controller.data.request.BookCreationRequest;
+import com.booking.api.controller.data.request.BookUpdateRequest;
 import com.booking.api.domain.Book;
 import com.booking.api.domain.User;
 import com.booking.api.domain.exception.BusinessException;
@@ -35,6 +36,16 @@ public class BookingServiceImpl implements BookingService {
 
     public List<Book> find(LocalDate dateFrom, LocalDate dateTo) {
         return bookRepository.findAllByDateFromAndDateTo(dateFrom, dateTo);
+    }
+
+    public void delete(Long bookId) {
+        bookRepository.deleteById(bookId);
+    }
+
+    public void update(Long bookId, BookUpdateRequest bookUpdateRequest) {
+        validateDates(bookUpdateRequest.getDateFrom(), bookUpdateRequest.getDateTo());
+        checkRoomAvailability(bookUpdateRequest.getDateFrom(), bookUpdateRequest.getDateTo());
+        bookRepository.updateDateFromAndDateTo(bookId, bookUpdateRequest.getDateFrom(), bookUpdateRequest.getDateTo());
     }
 
     private void checkRoomAvailability(LocalDate dateFrom, LocalDate dateTo) {

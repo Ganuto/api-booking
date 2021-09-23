@@ -1,6 +1,7 @@
 package com.booking.api.service;
 
 import com.booking.api.controller.data.request.BookCreationRequest;
+import com.booking.api.controller.data.request.BookUpdateRequest;
 import com.booking.api.domain.Book;
 
 import java.time.LocalDate;
@@ -11,4 +12,8 @@ public interface BookingService {
     void book(BookCreationRequest bookCreationRequest);
 
     List<Book> find(LocalDate from, LocalDate to);
+
+    void delete(Long bookId);
+
+    void update(Long bookId, BookUpdateRequest bookUpdateRequest);
 }
