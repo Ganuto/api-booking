@@ -22,8 +22,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAllByDateFromAndDateTo(@Param("dateFrom") LocalDate dateFrom, @Param("dateTo") LocalDate dateTo);
 
 
-    @Query("UPDATE Book b" +
-            "SET b.dateFrom = :dateFrom, dateTo = :dateTo " +
+    @Query("UPDATE Book b " +
+            "SET b.dateFrom = :newDateFrom, dateTo = :newDateTo " +
             "WHERE b.id = :bookId")
     Book updateDateFromAndDateTo(@Param("bookId") Long bookId,
                                  @Param("newDateFrom") LocalDate newDateFrom,
