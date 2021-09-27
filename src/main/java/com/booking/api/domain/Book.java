@@ -19,7 +19,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
+    private User user;
 
     @Column(name = "date_from", nullable = false)
     private LocalDate dateFrom;

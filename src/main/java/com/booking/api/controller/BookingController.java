@@ -33,13 +33,13 @@ public class BookingController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/book/:id")
+    @DeleteMapping("/book/{bookId}")
     public ResponseEntity<Void> cancel(@PathVariable Long bookId) {
         bookingService.delete(bookId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PatchMapping("/book/:id")
+    @PatchMapping("/book/{bookId}")
     public ResponseEntity<Void> update(@PathVariable Long bookId,
                                        @RequestBody @Valid BookUpdateRequest bookUpdateRequest) {
         bookingService.update(bookId, bookUpdateRequest);

@@ -11,7 +11,7 @@ public abstract class BookingMapper {
     public static Book toDomain(BookCreationRequest bookCreationRequest, User user) {
         Book book = new Book();
 
-        book.setUserId(user);
+        book.setUser(user);
         book.setDateFrom(bookCreationRequest.getDateFrom());
         book.setDateTo(bookCreationRequest.getDateTo());
         book.setCreatedDate(LocalDateTime.now());

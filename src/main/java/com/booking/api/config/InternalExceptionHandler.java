@@ -1,7 +1,7 @@
 package com.booking.api.config;
 
-import com.booking.api.controller.BookingController;
 import com.booking.api.domain.exception.BusinessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,6 +27,11 @@ public class InternalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({BusinessException.class})
     public ResponseEntity<Map<String, Object>> handleBusinessException(Exception ex) {
         return buildErrorResponse(HttpStatus.PRECONDITION_FAILED, ex.getMessage());
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    public ResponseEntity<Map<String, Object>> handleDataIntegrityViolationException(Exception ex) {
+        return buildErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
     }
 
     private ResponseEntity<Map<String, Object>> buildErrorResponse(HttpStatus httpStatus, String message) {
