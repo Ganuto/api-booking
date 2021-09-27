@@ -56,9 +56,7 @@ public class BookingServiceTest {
 
     @Test
     public void findSuccessFully() {
-        User user = UserMock.createUser();
         Book book = BookMock.createBook();
-        BookCreationRequest bookCreationRequest = BookMock.createBookCreationRequest();
 
         when(bookRepository.findAllByDateFromAndDateTo(any(LocalDate.class), any(LocalDate.class)))
                 .thenReturn(Collections.singletonList(book));
