@@ -9,7 +9,7 @@ public class UserMock {
     public static UserCreationResponse createUserCreationResponse() {
         UserCreationResponse userCreationResponse = new UserCreationResponse();
 
-        userCreationResponse.setUserId(123L);
+        userCreationResponse.setUserId(1L);
         userCreationResponse.setName("Test");
         userCreationResponse.setDocument("12345678910");
         userCreationResponse.setLogin("testLogin");
@@ -31,7 +31,7 @@ public class UserMock {
     public static User createUser() {
         User user = new User();
 
-        user.setId(123L);
+        user.setId(1L);
         user.setLogin("testLogin");
         user.setDocument("12345678910");
         user.setName("Test");

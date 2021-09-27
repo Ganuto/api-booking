@@ -26,7 +26,7 @@ public class BookMock {
 
         bookCreationRequest.setUserId(UserMock.createUser().getId());
         bookCreationRequest.setDateFrom(LocalDate.now().plusDays(1));
-        bookCreationRequest.setDateTo(LocalDate.now().plusDays(3));
+        bookCreationRequest.setDateTo(LocalDate.now().plusDays(2));
 
         return bookCreationRequest;
     }
